@@ -1,0 +1,154 @@
+﻿<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>11:06:29:8237</timestamp>
+  <msgtype>MsgWXLogLaunch</msgtype>
+  <content>[The WXLogger is launched!]</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.Options.OptionsConfig..ctor; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>11:06:29:8347</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+OptionsConfig,-option=text
+-do=assetListInfo
+-sourceDir=D:/Unity_Project/MiShi_Test/MiShi_Minigame\webgl
+-dataDir=D:/Unity_Project/MiShi_Test/MiShi_Test/TextToolDatas
+</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>11:06:29:8357</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|string
+UnityBridgeHandler - SetDataDir,D:/Unity_Project/MiShi_Test/MiShi_Test/TextToolDatas\temp</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>11:06:29:8417</timestamp>
+  <msgtype>MsgString</msgtype>
+  <content>WXTextureMinExec</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>11:06:29:8446</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|string
+IgnoreHandler,D:/Unity_Project/MiShi_Test/MiShi_Test/TextToolDatas\bundlerIgnore.txt</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.AppCmdExec.WXTextureMinExec..ctor; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Application.App..ctor; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>11:06:29:8456</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec files,D:\Unity_Project\MiShi_Test\MiShi_Minigame\webgl\Build\webgl.data
+D:\Unity_Project\MiShi_Test\MiShi_Minigame\webgl\Build\webgl.framework.js
+D:\Unity_Project\MiShi_Test\MiShi_Minigame\webgl\Build\webgl.loader.js
+D:\Unity_Project\MiShi_Test\MiShi_Minigame\webgl\Build\webgl.symbols.json
+D:\Unity_Project\MiShi_Test\MiShi_Minigame\webgl\Build\webgl.wasm
+D:\Unity_Project\MiShi_Test\MiShi_Minigame\webgl\index.html
+</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>11:06:29:8456</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec filesAB,</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>11:06:29:8476</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec copyFiles,D:\Unity_Project\MiShi_Test\MiShi_Minigame\webgl\Build\webgl.data
+D:\Unity_Project\MiShi_Test\MiShi_Minigame\webgl\Build\webgl.framework.js
+D:\Unity_Project\MiShi_Test\MiShi_Minigame\webgl\Build\webgl.loader.js
+D:\Unity_Project\MiShi_Test\MiShi_Minigame\webgl\Build\webgl.symbols.json
+D:\Unity_Project\MiShi_Test\MiShi_Minigame\webgl\Build\webgl.wasm
+D:\Unity_Project\MiShi_Test\MiShi_Minigame\webgl\index.html
+</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>11:06:29:8476</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec assetBundles,</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>11:06:29:8476</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec firstBundles,</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>11:06:29:8476</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec copyFiles2,</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>11:06:29:8476</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXTextureMinExec assetBundles2,</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>

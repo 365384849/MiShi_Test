@@ -1,0 +1,128 @@
+﻿<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>10:11:16:9102</timestamp>
+  <msgtype>MsgWXLogLaunch</msgtype>
+  <content>[The WXLogger is launched!]</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.Options.OptionsConfig..ctor; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>10:11:16:9191</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+OptionsConfig,-option=ignore
+-dataDir=D:/Unity_Project/MiShi_Test/MiShi_Test/TextToolDatas
+-classDataPath=D:/Unity_Project/MiShi_Test/MiShi_Test/Assets\WX-WASM-SDK-V2\Editor/TextureEditor/classdata.tpk
+</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>10:11:16:9201</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|string
+UnityBridgeHandler - SetDataDir,D:/Unity_Project/MiShi_Test/MiShi_Test/TextToolDatas\temp</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>10:11:16:9261</timestamp>
+  <msgtype>MsgString</msgtype>
+  <content>WXAssetsIgnoreExec</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>10:11:16:9271</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|string
+IgnoreHandler,D:/Unity_Project/MiShi_Test/MiShi_Test/TextToolDatas\bundlerIgnore.txt</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.AppCmdExec.WXAssetsIgnoreExec..ctor; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Application.App..ctor; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>10:11:16:9281</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|string
+BundlePicRecord initFile,D:/Unity_Project/MiShi_Test/MiShi_Test/TextToolDatas\DEALSFILERECORD.json</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.AppCmdExec.WXAssetsIgnoreExec.todo; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.AppCmdExec.WXAssetsIgnoreExec..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Application.App.process; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>10:11:16:9291</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|string
+BundlePicRecord readAllRecord,{"timestamp":0,"files":[{"path":"D:\\Unity_Project\\MiShi_Test\\MiShi_Minigame\\webgl\\e95fe91b565e0fc9.webgl.data.unityweb.bin.txt","dstPath":"D:/Unity_Project/MiShi_Test/MiShi_Minigame\\webgl-min\\e95fe91b565e0fc9.webgl.data.unityweb.bin.txt","md5":"e95fe91b565e0fc9","textures":[{"width":128,"height":128,"name":"Soft.c1d63e75","astc":null,"limittype":null},{"width":2048,"height":1024,"name":"UnitySplash-cube.84543fde","astc":null,"limittype":null},{"width":64,"height":64,"name":"WarningSign.59b8d955","astc":null,"limittype":null},{"width":12,"height":12,"name":"box.643f5df8","astc":null,"limittype":null},{"width":12,"height":12,"name":"button%20active.c15aedb7","astc":null,"limittype":null},{"width":12,"height":12,"name":"button%20hover.42efb15e","astc":null,"limittype":null},{"width":12,"height":12,"name":"button%20on%20hover.2c40c4b8","astc":null,"limittype":null},{"width":12,"height":12,"name":"button%20on.7ff0e5a1","astc":null,"limittype":null},{"width":12,"height":12,"name":"button.bdec6b82","astc":null,"limittype":null},{"width":12,"height":12,"name":"horizontal%20scrollbar%20thumb.4137b46d","astc":null,"limittype":null},{"width":8,"height":12,"name":"slider%20thumb%20active.168a62a9","astc":null,"limittype":null},{"width":8,"height":12,"name":"slider%20thumb.a7acef71","astc":null,"limittype":null},{"width":8,"height":12,"name":"slidert%20humb%20hover.0c248117","astc":null,"limittype":null},{"width":12,"height":12,"name":"vertical%20scrollbar%20thumb.7ba97313","astc":null,"limittype":null},{"width":12,"height":12,"name":"textfield.a75d69ec","astc":null,"limittype":null},{"width":12,"height":12,"name":"textfield%20on.f2c2fb5c","astc":null,"limittype":null},{"width":12,"height":12,"name":"textfield%20hover.8c7ae9d8","astc":null,"limittype":null},{"width":32,"height":32,"name":"UnitySplash-HolographicTrackingLoss.cbf38e69","astc":null,"limittype":null},{"width":1024,"height":2048,"name":"output%20(3).5e6560de","astc":null,"limittype":null}]}]}</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.AppCmdExec.WXAssetsIgnoreExec..ctor; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Application.App..ctor; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>10:11:16:9451</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXAssetsIgnoreExec.todo-abTaskQueue,</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>10:11:16:9451</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|String[]
+WXAssetsIgnoreExec.todo-ignoreBundles,</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>10:11:16:9451</timestamp>
+  <msgtype>MsgMixture</msgtype>
+  <content>string|int
+WXAssetsIgnoreExec.todo-abTaskQueue.Count,0</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
+<wxlog>
+  <threadId>#main</threadId>
+  <timestamp>10:11:16:9451</timestamp>
+  <msgtype>MsgString</msgtype>
+  <content>WXAssetsIgnoreExec.todo-done</content>
+  <stackFrames>
+[CALL STACK][0]: Method:WXTextureTools.Application.App.process; File:.0
+[CALL STACK][1]: Method:WXTextureTools.Application.App..ctor; File:.0
+[CALL STACK][2]: Method:WXTextureTools.Program.Main; File:.0
+</stackFrames>
+</wxlog>
