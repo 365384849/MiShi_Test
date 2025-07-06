@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; // 添加 TextMeshPro 命名空间
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
@@ -90,7 +91,7 @@ namespace Hitcode_RoomEscape
         public void playText()
         {
             cTextIndex = 1;
-            GameObject.Find("UItipText").GetComponent<Text>().text = "";
+            GameObject.Find("UItipText").GetComponent<TextMeshProUGUI>().text = "";
 
             GameData.Instance.locked = true;
 
@@ -125,7 +126,7 @@ namespace Hitcode_RoomEscape
                 {
                     tstr += " ";
                 }
-                GameObject.Find("UItipText").GetComponent<Text>().text = tstr;
+                GameObject.Find("UItipText").GetComponent<TextMeshProUGUI>().text = tstr;
                 cTextIndex++;
 
                 if (cTextIndex == tempShowText.Length)
@@ -140,7 +141,7 @@ namespace Hitcode_RoomEscape
         public void showFull()
         {
             cTextIndex = tempShowText.Length;
-            GameObject.Find("UItipText").GetComponent<Text>().text = tempShowText.Substring(0, cTextIndex);
+            GameObject.Find("UItipText").GetComponent<TextMeshProUGUI>().text = tempShowText.Substring(0, cTextIndex);
             GameData.Instance.Textlocked = true;
 
             StopCoroutine("typeWrite");
@@ -158,12 +159,12 @@ namespace Hitcode_RoomEscape
 
             if (GameData.Instance.PlayTexts.Count > 0)
             {
-                GameObject.Find("UItipText").GetComponent<Text>().text = GameData.Instance.PlayTexts[0];
+                GameObject.Find("UItipText").GetComponent<TextMeshProUGUI>().text = GameData.Instance.PlayTexts[0];
                 GameData.Instance.PlayTexts.RemoveAt(0);
             }
             else
             {
-                GameObject.Find("UItipText").GetComponent<Text>().text = "";
+                GameObject.Find("UItipText").GetComponent<TextMeshProUGUI>().text = "";
             }
 
             GameData.Instance.Textlocked = true;

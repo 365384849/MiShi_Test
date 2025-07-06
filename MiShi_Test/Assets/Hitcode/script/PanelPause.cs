@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using TMPro; // 添加 TextMeshPro 命名空间
 
 namespace Hitcode_RoomEscape
 {
@@ -24,19 +25,19 @@ namespace Hitcode_RoomEscape
 
         private void OnEnable()
         {
-            transform.Find("bg").Find("btnResume").GetComponentInChildren<Text>().text = Localization.Instance.GetString("btnResume");
-            transform.Find("bg").Find("btnExit").GetComponentInChildren<Text>().text = Localization.Instance.GetString("btnExit");
-            transform.Find("bg").Find("pauseTitle").GetComponent<Text>().text = Localization.Instance.GetString("gamePaused");
-            transform.Find("bg").Find("btnSave").GetComponentInChildren<Text>().text = Localization.Instance.GetString("btnSave");
-            transform.Find("bg").Find("btnLoad").GetComponentInChildren<Text>().text = Localization.Instance.GetString("btnLoad");
-            transform.Find("bg").Find("btnJournal").GetComponentInChildren<Text>().text = Localization.Instance.GetString("btnJournal");
+            transform.Find("bg").Find("btnResume").GetComponentInChildren<TextMeshProUGUI>().text = Localization.Instance.GetString("btnResume");
+            transform.Find("bg").Find("btnExit").GetComponentInChildren<TextMeshProUGUI>().text = Localization.Instance.GetString("btnExit");
+      //      transform.Find("bg").Find("pauseTitle").GetComponent<TextMeshProUGUI>().text = Localization.Instance.GetString("gamePaused");
+            transform.Find("bg").Find("btnSave").GetComponentInChildren<TextMeshProUGUI>().text = Localization.Instance.GetString("btnSave");
+            transform.Find("bg").Find("btnLoad").GetComponentInChildren<TextMeshProUGUI>().text = Localization.Instance.GetString("btnLoad");
+            transform.Find("bg").Find("btnJournal").GetComponentInChildren<TextMeshProUGUI>().text = Localization.Instance.GetString("btnJournal");
 
             //disable save load when webgl.
 #if UNITY_WEBGL
             transform.Find("bg").Find("btnSave").GetComponent<Button>().interactable = false;
             transform.Find("bg").Find("btnLoad").GetComponent<Button>().interactable = false;
-            transform.Find("bg").Find("btnSave").GetComponentInChildren<Text>().color = new Color(1, 1, 1, .3f);
-            transform.Find("bg").Find("btnLoad").GetComponentInChildren<Text>().color = new Color(1, 1, 1, .3f);
+            transform.Find("bg").Find("btnSave").GetComponentInChildren<TextMeshProUGUI>().color = new Color(1, 1, 1, .3f);
+            transform.Find("bg").Find("btnLoad").GetComponentInChildren<TextMeshProUGUI>().color = new Color(1, 1, 1, .3f);
 #endif
         }
 
