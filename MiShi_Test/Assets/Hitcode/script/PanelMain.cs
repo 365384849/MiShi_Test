@@ -2,88 +2,93 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 using DG.Tweening;
-using TMPro; // TextMeshPro 的命名空间
+using TMPro;
 
 namespace Hitcode_RoomEscape
 {
     public class PanelMain : MonoBehaviour
     {
-        // UI 文本组件（使用 TextMeshProUGUI）
+        // 主要 UI 文本组件
         public TextMeshProUGUI btnStart, btnLoad, btnYes, btnNo, txtWarn, tipbg;
 
-        // 音乐与音效开关 Toggle
+        // 音乐与音效切换按钮
         public Toggle toggleMusic, toggleSFX;
 
-        // UI 遮罩图，用于淡入淡出
+        // 遮罩图像用于场景切换时的淡入淡出
         public Image mask;
 
-        // 多语言图标数组
+        // 多语言图标资源
         public Sprite[] localIcon;
 
-        // 存档加载面板
+        // 面板对象
         public GameObject panelSaveLoad;
+        public GameObject panelSetting;         // 设置面板
+        public GameObject panelClearSaveData;   // 清除存档确认面板
 
-        // 设置面板及其控制按钮
-        public GameObject panelSetting;
+        // 各类按钮引用
         public Button btnSeting;
         public Button btnCloseSetting;
+        public Button btnClearSaveData;  // 打开清除确认面板
+        public Button btnClearYes;       // 确认清除
+        public Button btnClearNo;        // 取消清除
 
-        // 其他 UI 或面板引用（可选）
+        // 其他可选面板引用
         [HideInInspector] public GameObject title;
         [HideInInspector] public GameObject panelShop, panelFade;
 
-        Scene levelC; // 场景引用（暂未使用）
+        Scene levelC; // 场景引用（未使用）
 
         void Start()
         {
-            // 初始化游戏逻辑
+            // 初始化游戏数据
             GameManager.getInstance().init();
 
-            // ✅ 默认背景音乐开启：如没有保存，则设置为开启
+            // 如果第一次运行，默认开启音乐
             if (!PlayerPrefs.HasKey("sound"))
             {
-                PlayerPrefs.SetInt("sound", 1); // 默认开启背景音乐
+                PlayerPrefs.SetInt("sound", 1);
                 PlayerPrefs.Save();
             }
 
-            // 从本地保存中读取音乐与音效设置
+            // 读取保存的音效设置
             GameData.getInstance().isSoundOn = PlayerPrefs.GetInt("sound");
-            GameData.getInstance().isSfxOn = PlayerPrefs.GetInt("sfx", 1); // 默认为开启
+            GameData.getInstance().isSfxOn = PlayerPrefs.GetInt("sfx", 1);
 
-            // 初始化音乐和音效 Toggle 状态
+            // 设置 Toggle 状态
             toggleMusic.isOn = GameData.getInstance().isSoundOn == 1;
             toggleSFX.isOn = GameData.getInstance().isSfxOn == 1;
 
-            // 如果音乐未关闭，则播放背景音乐
+            // 若开启音乐则播放
             if (GameData.getInstance().isSoundOn == 0)
             {
                 GameManager.getInstance().playMusic("bgmusic", true);
             }
 
             // UI 状态初始化
-            fadeOut(); // 淡出黑幕
+            fadeOut();
             txtWarn.transform.parent.gameObject.SetActive(false);
             btnYes.transform.parent.gameObject.SetActive(false);
             btnNo.transform.parent.gameObject.SetActive(false);
-            panelSetting.SetActive(false); // 默认关闭设置面板
+            panelSetting.SetActive(false);
+            panelClearSaveData.SetActive(false); // 默认隐藏清除面板
 
-            localizeView(); // 设置语言与文本
+            localizeView(); // 多语言文本初始化
 
-            // 设置按钮绑定点击事件（可选）
+            // 按钮事件绑定
             btnSeting.onClick.AddListener(() => OnClick(btnSeting.gameObject));
             btnCloseSetting.onClick.AddListener(() => OnClick(btnCloseSetting.gameObject));
+            btnClearSaveData.onClick.AddListener(() => OnClick(btnClearSaveData.gameObject));
+            btnClearYes.onClick.AddListener(() => OnClick(btnClearYes.gameObject));
+            btnClearNo.onClick.AddListener(() => OnClick(btnClearNo.gameObject));
         }
 
-        // 设置界面多语言本地化内容
+        // 多语言文本设置
         void localizeView()
         {
             GameData.Instance.cLanguage = PlayerPrefs.GetInt("clanguage");
-  //          transform.Find("btnLocal").GetComponent<Image>().sprite = localIcon[GameData.Instance.cLanguage];
             GameData.Instance.setLanguage();
 
-            // 替换按钮文本
             btnStart.text = Localization.Instance.GetString("btnStart");
 #if UNITY_WEBGL
             btnLoad.text = Localization.Instance.GetString("btnContinue");
@@ -94,38 +99,19 @@ namespace Hitcode_RoomEscape
             btnNo.text = Localization.Instance.GetString("btnNo");
             tipbg.text = Localization.Instance.GetString("newGameTip");
 
-            // 若为第一次游戏，禁用“加载”按钮
             if (PlayerPrefs.GetInt("firstplay", 0) == 0)
             {
                 btnLoad.transform.parent.GetComponent<Button>().interactable = false;
                 btnLoad.color = new Color(1, 1, 1, 0.3f);
             }
-
-#if UNITY_WEBGL
-            transform.Find("btnLocal").gameObject.SetActive(false);
-#endif
         }
 
-        // 获取主菜单容器（用于未来逻辑扩展）
-        GameObject all_mainMenu;
-        void OnEnable()
-        {
-            all_mainMenu = GameObject.Find("all_mainMenu");
-        }
-
-        void Update()
-        {
-#if UNITY_IOS
-            // GameManager.getInstance().hideBanner(true);
-#endif
-        }
-
-        // 所有按钮点击事件处理统一入口
+        // 按钮点击事件集中处理
         public void OnClick(GameObject g)
         {
             if (GameData.getInstance().locked) return;
 
-            Debug.Log("点击按钮：" + g.name); // 调试用日志
+            Debug.Log("点击按钮：" + g.name);
 
             switch (g.name)
             {
@@ -141,7 +127,7 @@ namespace Hitcode_RoomEscape
                 case "btnLoad":
 #if UNITY_WEBGL
                     GameManager.getInstance().playSfx("click");
-                    startroom = PlayerPrefs.GetString("quitSceneName0", "startroom");
+                    startCutScene = PlayerPrefs.GetString("quitSceneName0", "startCutScene");
                     StartCoroutine(waitaframe());
 #else
                     panelSaveLoad.GetComponent<PanelSaveLoad>().init(1);
@@ -150,7 +136,7 @@ namespace Hitcode_RoomEscape
 
                 case "btnContinue":
                     GameManager.getInstance().playSfx("click");
-                    startroom = PlayerPrefs.GetString("quitSceneName0", "startroom");
+                    startCutScene = PlayerPrefs.GetString("quitSceneName0", "startCutScene");
                     StartCoroutine(waitaframe());
                     break;
 
@@ -160,7 +146,7 @@ namespace Hitcode_RoomEscape
                     PlayerPrefs.SetInt("sound", GameData.Instance.isSoundOn);
                     PlayerPrefs.SetInt("sfx", GameData.Instance.isSfxOn);
                     PlayerPrefs.SetInt("clanguage", GameData.Instance.cLanguage);
-                    fadeIn("startroom");
+                    fadeIn("startCutScene");
                     break;
 
                 case "btnNo":
@@ -174,17 +160,37 @@ namespace Hitcode_RoomEscape
 
                 case "btnSeting":
                     GameManager.getInstance().playSfx("click");
-                    panelSetting.SetActive(true); // 显示设置面板
+                    panelSetting.SetActive(true);
                     break;
 
                 case "btnCloseSetting":
                     GameManager.getInstance().playSfx("click");
-                    panelSetting.SetActive(false); // 隐藏设置面板
+                    panelSetting.SetActive(false);
+                    break;
+
+                case "btnClearSaveData":
+                    GameManager.getInstance().playSfx("click");
+                    panelClearSaveData.SetActive(true); // 打开确认面板
+                    break;
+
+                case "btnClearYes":
+                    GameManager.getInstance().playSfx("click");
+                    GameData.Instance.clearSlot();
+                    PlayerPrefs.SetInt("sound", GameData.Instance.isSoundOn);
+                    PlayerPrefs.SetInt("sfx", GameData.Instance.isSfxOn);
+                    PlayerPrefs.SetInt("clanguage", GameData.Instance.cLanguage);
+                    fadeIn("startCutScene"); // 清除并跳转
+                    break;
+
+                case "btnClearNo":
+                    Debug.Log("关闭清除存档面板");
+                    GameManager.getInstance().playSfx("click");
+                    panelClearSaveData.SetActive(false); // 取消关闭面板
                     break;
             }
         }
 
-        // 音效和音乐开关控制
+        // 音乐与音效开关控制
         bool musicInited = false;
         bool toggleSfxInited = false;
 
@@ -215,7 +221,7 @@ namespace Hitcode_RoomEscape
             }
         }
 
-        // 黑幕淡出动画
+        // 黑幕淡出（进入游戏时）
         void fadeOut()
         {
             mask.gameObject.SetActive(true);
@@ -223,7 +229,7 @@ namespace Hitcode_RoomEscape
             mask.DOFade(0, 1).OnComplete(fadeOutOver);
         }
 
-        // 黑幕淡入动画并加载场景
+        // 黑幕淡入（准备加载场景）
         void fadeIn(string sceneName)
         {
             if (mask.IsActive()) return;
@@ -239,24 +245,18 @@ namespace Hitcode_RoomEscape
             PlayerPrefs.SetInt("firstplay", 0);
         }
 
-        // 淡出完成，关闭遮罩
+        // 淡出完成，关闭黑幕
         void fadeOutOver()
         {
             mask.gameObject.SetActive(false);
         }
 
-        // 手动调整遮罩透明度
-        void OnUpdateTween(float value)
-        {
-            mask.color = new Color(0, 0, 0, value);
-        }
-
-        // 等待一帧再进入场景（兼容 WebGL）
-        string startroom;
+        // 用于 WebGL 的异步场景加载
+        string startCutScene;
         IEnumerator waitaframe()
         {
             yield return new WaitForEndOfFrame();
-            fadeIn(startroom);
+            fadeIn(startCutScene);
         }
     }
 }
