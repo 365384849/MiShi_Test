@@ -10,8 +10,9 @@ public class TMPTextRevealEffect : MonoBehaviour
     [TextArea(3, 10)]
     public string fullText;                // 要逐个显示的完整文字
     public float charInterval = 0.05f;     // 每个字符显示的间隔时间（秒）
-    public AudioClip typeSound;            // 打字音效
-    public AudioSource audioSource;        // 用于播放音效的 AudioSource
+    public AudioClip typeSound;            // 打字音效（可选）
+    public AudioSource audioSource;        // 用于播放音效或语音的 AudioSource
+    public AudioClip fullVoiceClip;        // 模仿语音整段配音（AI生成）
 
     private bool isTyping = false;         // 当前是否处于打字中
     private bool hasFadedOut = false;      // 是否已执行过淡出
@@ -19,6 +20,13 @@ public class TMPTextRevealEffect : MonoBehaviour
 
     void Start()
     {
+        // 播放完整语音（如果有）
+        if (audioSource != null && fullVoiceClip != null)
+        {
+            audioSource.clip = fullVoiceClip;
+            audioSource.Play();
+        }
+
         StartCoroutine(RevealText());
     }
 
@@ -41,12 +49,13 @@ public class TMPTextRevealEffect : MonoBehaviour
         targetText.DOFade(1f, 1f);
         yield return new WaitForSeconds(0.5f);
 
-        // 逐字显示内容 + 播放音效
+        // 逐字显示内容 + 播放打字音效（可选）
         for (int i = 0; i < fullText.Length; i++)
         {
             targetText.text += fullText[i];
 
-            if (typeSound != null && audioSource != null)
+            // 如果没有整段语音，也可以播放逐字音效
+            if (fullVoiceClip == null && typeSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(typeSound);
             }
