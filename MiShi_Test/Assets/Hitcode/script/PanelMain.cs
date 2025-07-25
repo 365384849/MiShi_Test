@@ -111,7 +111,7 @@ namespace Hitcode_RoomEscape
         {
             if (GameData.getInstance().locked) return;
 
-            Debug.Log("点击按钮：" + g.name);
+            //Debug.Log("点击按钮：" + g.name);
 
             switch (g.name)
             {
@@ -183,7 +183,7 @@ namespace Hitcode_RoomEscape
                     break;
 
                 case "btnClearNo":
-                    Debug.Log("关闭清除存档面板");
+                    //Debug.Log("关闭清除存档面板");
                     GameManager.getInstance().playSfx("click");
                     panelClearSaveData.SetActive(false); // 取消关闭面板
                     break;
