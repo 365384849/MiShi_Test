@@ -4,16 +4,21 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using TMPro;
+using System.Collections.Generic;
 
 namespace Hitcode_RoomEscape
 {
     public class PanelMain : MonoBehaviour
     {
-        // 主要 UI 文本组件
+        // UI 文本组件
         public TextMeshProUGUI btnStart, btnLoad, btnYes, btnNo, txtWarn, tipbg;
 
         // 音乐与音效切换按钮
         public Toggle toggleMusic, toggleSFX;
+
+        // 音量滑杆
+        public Slider sliderMusicVolume;
+        public Slider sliderSfxVolume;
 
         // 遮罩图像用于场景切换时的淡入淡出
         public Image mask;
@@ -23,59 +28,68 @@ namespace Hitcode_RoomEscape
 
         // 面板对象
         public GameObject panelSaveLoad;
-        public GameObject panelSetting;         // 设置面板
-        public GameObject panelClearSaveData;   // 清除存档确认面板
+        public GameObject panelSetting;
+        public GameObject panelClearSaveData;
 
         // 各类按钮引用
         public Button btnSeting;
         public Button btnCloseSetting;
-        public Button btnClearSaveData;  // 打开清除确认面板
-        public Button btnClearYes;       // 确认清除
-        public Button btnClearNo;        // 取消清除
+        public Button btnClearSaveData;
+        public Button btnClearYes;
+        public Button btnClearNo;
 
-        // 其他可选面板引用
         [HideInInspector] public GameObject title;
         [HideInInspector] public GameObject panelShop, panelFade;
 
-        Scene levelC; // 场景引用（未使用）
+        // 每个场景对应的音乐名称（空字符串表示不播放音乐）
+        Dictionary<string, string> sceneMusicMap = new Dictionary<string, string>()
+        {
+            { "startCutScene", "" },
+            { "Level01", "" }
+        };
+
+        Scene levelC;
+        string startCutScene;
 
         void Start()
         {
-            // 初始化游戏数据
             GameManager.getInstance().init();
 
-            // 如果第一次运行，默认开启音乐
-            if (!PlayerPrefs.HasKey("sound"))
-            {
-                PlayerPrefs.SetInt("sound", 1);
-                PlayerPrefs.Save();
-            }
+            sliderMusicVolume.onValueChanged.AddListener(OnMusicVolumeChanged);
+            sliderSfxVolume.onValueChanged.AddListener(OnSfxVolumeChanged);
 
-            // 读取保存的音效设置
+            if (!PlayerPrefs.HasKey("sound")) PlayerPrefs.SetInt("sound", 1);
+            if (!PlayerPrefs.HasKey("sfx")) PlayerPrefs.SetInt("sfx", 1);
+            if (!PlayerPrefs.HasKey("musicVolume")) PlayerPrefs.SetFloat("musicVolume", 1f);
+            if (!PlayerPrefs.HasKey("sfxVolume")) PlayerPrefs.SetFloat("sfxVolume", 1f);
+            PlayerPrefs.Save();
+
             GameData.getInstance().isSoundOn = PlayerPrefs.GetInt("sound");
-            GameData.getInstance().isSfxOn = PlayerPrefs.GetInt("sfx", 1);
+            GameData.getInstance().isSfxOn = PlayerPrefs.GetInt("sfx");
 
-            // 设置 Toggle 状态
             toggleMusic.isOn = GameData.getInstance().isSoundOn == 1;
             toggleSFX.isOn = GameData.getInstance().isSfxOn == 1;
 
-            // 若开启音乐则播放
-            if (GameData.getInstance().isSoundOn == 0)
-            {
-                GameManager.getInstance().playMusic("bgmusic", true);
-            }
+            // 初始化音量滑杆
+            float musicVolume = PlayerPrefs.GetFloat("musicVolume", 1f);
+            float sfxVolume = PlayerPrefs.GetFloat("sfxVolume", 1f);
+            sliderMusicVolume.value = musicVolume;
+            sliderSfxVolume.value = sfxVolume;
+            GameManager.getInstance().setMusicVolume(musicVolume);
+            GameManager.getInstance().setSfxVolume(sfxVolume);
 
-            // UI 状态初始化
+            if (GameData.getInstance().isSoundOn == 0)
+                GameManager.getInstance().playMusic("bgmusic", true);
+
             fadeOut();
             txtWarn.transform.parent.gameObject.SetActive(false);
             btnYes.transform.parent.gameObject.SetActive(false);
             btnNo.transform.parent.gameObject.SetActive(false);
             panelSetting.SetActive(false);
-            panelClearSaveData.SetActive(false); // 默认隐藏清除面板
+            panelClearSaveData.SetActive(false);
 
-            localizeView(); // 多语言文本初始化
+            localizeView();
 
-            // 按钮事件绑定
             btnSeting.onClick.AddListener(() => OnClick(btnSeting.gameObject));
             btnCloseSetting.onClick.AddListener(() => OnClick(btnCloseSetting.gameObject));
             btnClearSaveData.onClick.AddListener(() => OnClick(btnClearSaveData.gameObject));
@@ -83,7 +97,6 @@ namespace Hitcode_RoomEscape
             btnClearNo.onClick.AddListener(() => OnClick(btnClearNo.gameObject));
         }
 
-        // 多语言文本设置
         void localizeView()
         {
             GameData.Instance.cLanguage = PlayerPrefs.GetInt("clanguage");
@@ -106,12 +119,9 @@ namespace Hitcode_RoomEscape
             }
         }
 
-        // 按钮点击事件集中处理
         public void OnClick(GameObject g)
         {
             if (GameData.getInstance().locked) return;
-
-            //Debug.Log("点击按钮：" + g.name);
 
             switch (g.name)
             {
@@ -170,7 +180,7 @@ namespace Hitcode_RoomEscape
 
                 case "btnClearSaveData":
                     GameManager.getInstance().playSfx("click");
-                    panelClearSaveData.SetActive(true); // 打开确认面板
+                    panelClearSaveData.SetActive(true);
                     break;
 
                 case "btnClearYes":
@@ -179,18 +189,16 @@ namespace Hitcode_RoomEscape
                     PlayerPrefs.SetInt("sound", GameData.Instance.isSoundOn);
                     PlayerPrefs.SetInt("sfx", GameData.Instance.isSfxOn);
                     PlayerPrefs.SetInt("clanguage", GameData.Instance.cLanguage);
-                    fadeIn("startCutScene"); // 清除并跳转
+                    fadeIn("startCutScene");
                     break;
 
                 case "btnClearNo":
-                    //Debug.Log("关闭清除存档面板");
                     GameManager.getInstance().playSfx("click");
-                    panelClearSaveData.SetActive(false); // 取消关闭面板
+                    panelClearSaveData.SetActive(false);
                     break;
             }
         }
 
-        // 音乐与音效开关控制
         bool musicInited = false;
         bool toggleSfxInited = false;
 
@@ -221,7 +229,22 @@ namespace Hitcode_RoomEscape
             }
         }
 
-        // 黑幕淡出（进入游戏时）
+        // 音量滑杆响应函数
+                public void OnMusicVolumeChanged(float value)
+                {
+                    GameManager.getInstance().setMusicVolume(value);
+                    PlayerPrefs.SetFloat("musicVolume", value);
+                    PlayerPrefs.Save();
+                }
+
+                public void OnSfxVolumeChanged(float value)
+                {
+                    GameManager.getInstance().setSfxVolume(value);
+                    PlayerPrefs.SetFloat("sfxVolume", value);
+                    PlayerPrefs.Save();
+                }
+
+
         void fadeOut()
         {
             mask.gameObject.SetActive(true);
@@ -229,7 +252,6 @@ namespace Hitcode_RoomEscape
             mask.DOFade(0, 1).OnComplete(fadeOutOver);
         }
 
-        // 黑幕淡入（准备加载场景）
         void fadeIn(string sceneName)
         {
             if (mask.IsActive()) return;
@@ -238,21 +260,31 @@ namespace Hitcode_RoomEscape
             mask.DOFade(1, 1).OnComplete(() => fadeInOver(sceneName));
         }
 
-        // 淡入完成后加载场景
         void fadeInOver(string sceneName)
         {
-            SceneManager.LoadScene(sceneName);
             PlayerPrefs.SetInt("firstplay", 0);
+
+            if (sceneMusicMap.ContainsKey(sceneName))
+            {
+                string musicName = sceneMusicMap[sceneName];
+                if (!string.IsNullOrEmpty(musicName) && GameData.getInstance().isSoundOn == 0)
+                {
+                    GameManager.getInstance().playMusic(musicName, true);
+                }
+                else
+                {
+                    GameManager.getInstance().stopBGMusic();
+                }
+            }
+
+            SceneManager.LoadScene(sceneName);
         }
 
-        // 淡出完成，关闭黑幕
         void fadeOutOver()
         {
             mask.gameObject.SetActive(false);
         }
 
-        // 用于 WebGL 的异步场景加载
-        string startCutScene;
         IEnumerator waitaframe()
         {
             yield return new WaitForEndOfFrame();

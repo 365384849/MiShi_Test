@@ -28,8 +28,33 @@ namespace Hitcode_RoomEscape
 
 
 
+        // 音乐音量（供滑杆使用）
+        private float musicVolume = 1f;
+        private float sfxVolume = 1f;
+
+        public void setMusicVolume(float volume)
+        {
+            musicVolume = volume;
+            if (bgMusic != null)
+            {
+                bgMusic.volume = volume;
+            }
+            PlayerPrefs.SetFloat("musicVolume", volume);
+            PlayerPrefs.Save();
+        }
+
+        public void setSfxVolume(float volume)
+        {
+            sfxVolume = volume;
+            PlayerPrefs.SetFloat("sfxVolume", volume);
+            PlayerPrefs.Save();
+        }
+
+        public float getMusicVolume() => musicVolume;
+        public float getSfxVolume() => sfxVolume;
 
         public static GameManager instance;
+        
         public static GameManager getInstance()
         {
             if (instance == null)
@@ -39,6 +64,8 @@ namespace Hitcode_RoomEscape
             }
             return instance;
         }
+        
+        
 
 
 
@@ -361,27 +388,26 @@ namespace Hitcode_RoomEscape
 
         public void init()
         {
-            music = GameObject.Find("music") as GameObject;
-            //get data
+            // ✅ 音乐 GameObject 绑定
+            music = GameObject.Find("music");
+            if (music != null)
+            {
+                bgMusic = music.GetComponent<AudioSource>();
+            }
+            
+
+            // ✅ 原有 GameManager 初始化逻辑继续保留
             initAds();
             initRate();
-            //Localization.Instance.SetLanguage(GameData.Instance.GetSystemLaguage());
-            
+
             int allScore = 0;
-
-
             GameData.getInstance().bestscore = allScore;
-            GameData.getInstance().isSoundOn = (int)PlayerPrefs.GetInt("sound", 0);
-            GameData.getInstance().isSfxOn = (int)PlayerPrefs.GetInt("sfx", 0);
-            //Debug.Log("soundstate:" + GameData.getInstance().isSoundOn + "sfxstate:" + GameData.getInstance().isSfxOn);
-
-          
+            GameData.getInstance().isSoundOn = PlayerPrefs.GetInt("sound", 0);
+            GameData.getInstance().isSfxOn = PlayerPrefs.GetInt("sfx", 0);
 
             initGameCenter();
-            
-            //initStore();
-
         }
+
         public bool noToggleSound = false;
         /// <summary>
         /// Sets the state of the toggle buttons.
@@ -535,7 +561,8 @@ namespace Hitcode_RoomEscape
         //ads
         void initAds()
         {
-
+            float volume = PlayerPrefs.GetFloat("musicVolume", 1f);
+             setMusicVolume(volume); // ✅ 设置初始音量
 
             //		hideBanner (true);
             //Chartboost.didCacheInterstitial += cbInterestitialReady;

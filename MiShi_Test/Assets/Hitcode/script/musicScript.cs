@@ -4,20 +4,32 @@ using System.Collections.Generic;
 
 public class musicScript : MonoBehaviour
 {
+    public static musicScript instance;
+
+
     // 静态变量，标记是否已加载该脚本的实例（实现单例）
     public static bool loaded = false;
 
+    void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
+
+
         // 如果已经有实例，则销毁自己，确保只存在一个 musicScript 对象
         if (loaded)
         {
             DestroyImmediate(gameObject);
+
             return;
         }
 
         // 不销毁当前对象，在场景切换时保留（全局音频管理器）
         DontDestroyOnLoad(gameObject);
+        Debug.Log("销毁自己");
 
         // 初始化音频列表
         asgroups = new List<AudioSource>();
